@@ -1,0 +1,6 @@
+uint32 heartbeat_interval
+uint32 heartbeat_check_interval
+uint32 heartbeat_timeout
+uint32 heartbeat_timeout_limit
+---
+bool accepted
