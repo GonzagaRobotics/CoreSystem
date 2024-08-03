@@ -11,9 +11,10 @@ find_package(std_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/Heartbeat.msg"
   "msg/Killswitch.msg"
-  "srv/HeartbeatConfig.srv"
+  "msg/Heartbeat.msg"
+  "msg/HeartbeatDisconnect.msg"
+  "srv/HeartbeatConnect.srv"
   DEPENDENCIES std_msgs
 )
 
