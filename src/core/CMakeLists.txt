@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(core_interfaces)
+project(core)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,22 +7,9 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/Heartbeat.msg"
-  "msg/HeartbeatDisconnect.msg"
-  "srv/HeartbeatConnect.srv"
-  DEPENDENCIES std_msgs
-)
-
-install(
-  DIRECTORY include/
-  DESTINATION include
-)
-
-ament_export_include_directories(include)
+find_package(core_interfaces REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -35,5 +22,12 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+include_directories(${core_interfaces_INCLUDE_DIRS})
+
+add_executable(core src/Core.hpp src/Core.cpp src/Main.cpp)
+ament_target_dependencies(core rclcpp std_msgs core_interfaces)
+
+install(TARGETS core DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

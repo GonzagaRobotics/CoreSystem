@@ -85,5 +85,6 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "core_interfaces": "cpp"
-    }
+    },
+    "cmake.ignoreCMakeListsMissing": true
 }
